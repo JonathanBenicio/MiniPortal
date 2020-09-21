@@ -15,7 +15,6 @@ class CreateAdmTable extends Migration
     {
         Schema::create('adm', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('nome');
             $table->string('email');
             $table->string('senha');
             $table->timestamps();

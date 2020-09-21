@@ -39,8 +39,9 @@ Route::get('/edt', [EditorController::class, 'index'])->name('listar-Post')->mid
 Route::get('/edt/criar', [EditorController::class, 'criar'])->middleware('autenticador');
 
 Route::post('/edt/criar', [EditorController::class, 'criar'])->middleware('autenticador');
+Route::get('/edt/atualizar/{id}', [EditorController::class, 'atualizar'])->middleware('autenticador');
 Route::post('/edt/atualizar/{id}', [EditorController::class, 'atualizar'])->middleware('autenticador');
-Route::post('/edt/deletar/{id}', [EditorController::class, 'deletar'])->middleware('autenticador');
+Route::delete('/edt/deletar/{id}', [EditorController::class, 'deletar'])->middleware('autenticador');
 
 
 

@@ -2,7 +2,7 @@
 
 @section('nav-menu')
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
-    <a class="navbar navbar-expand-lg" href="{{ route('listar-Post') }}">Home</a>
+    <a class="navbar navbar-expand-lg" href="{{ route('logout') }}">Sair</a>
 </nav>
 @endsection
 
@@ -15,7 +15,11 @@
         {{ $post->titulo }}
         {{ $post->descricao }}
         <a href="edt/atualizar/{{ $post->id }}" class="btn btn-dark mb-2">Atualizar</a>
-        <a href="edt/deleta/{{ $post->id }}" class="btn btn-dark mb-2">Excluir</a>
+        <form method="post" action="edt/deletar/{{ $post->id }}">
+            @csrf
+            @method('DELETE')
+            <button  class="btn btn-dark mb-2">Excluir</button>
+        </form>
     </li>
 
     @endforeach

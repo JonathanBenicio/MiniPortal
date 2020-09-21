@@ -37,16 +37,21 @@ class EditorController extends Controller
         return view('edt.create-post');
     }
 
-    public function atualizar(Request $request)
+    public function getAtualizar(Request $request)
     {
         # code...
+
+        $post = Post::where('id', $request->id);
+
+        return view('adm.editar-post', $post);
+
 
     }
     public function deleta(Request $request)
     {
         # code...
 
-        Post::where(['id' => $request->id])->delete();
+        Post::destroy($request->id);
 
         $request->session()->flash('mensagem', 'Post deleltado com sucesso');
 
