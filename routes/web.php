@@ -26,7 +26,9 @@ Route::post('/login/adm', [LoginController::class, 'logarAdm']);
 Route::post('/login/edt', [LoginController::class, 'logarEdt']);
 
 Route::post('/create/edt', [LoginController::class, 'createEdt']);
-Route::get('/create/edt', [LoginController::class, 'createEdt']);
+Route::post('/create/edt', [LoginController::class, 'createEdt']);
+
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 

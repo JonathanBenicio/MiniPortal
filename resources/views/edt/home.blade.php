@@ -9,7 +9,8 @@
 @section('content')
 <a href="edt/criar" class="btn btn-dark mb-2">Adicionar</a>
 
-<ul class="list-group">
+<table>
+
     @foreach($posts as $post)
     <li class="list-group-item">
         {{ $post->titulo }}
@@ -23,5 +24,6 @@
     </li>
 
     @endforeach
-</ul>
+</table>
+
 @endsection

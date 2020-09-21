@@ -86,7 +86,7 @@ class LoginController extends Controller
         if(!empty($email) && !empty($senha)){
 
 
-            $editor = Editor::logar($email, Hash::make($senha));
+            $editor = Editor::logar($email, $senha);
 
 
             if(is_object($editor)){

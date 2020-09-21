@@ -20,7 +20,7 @@ class Adm extends Model
 
         $adm = self::where([['email',$email], ['senha',$senha]])->first();
 
-        // if($adm.is_object()) return false;
+         if(!is_object($adm)) return false;
 
 
 
