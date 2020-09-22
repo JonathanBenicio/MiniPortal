@@ -57,6 +57,7 @@ Route::middleware(['autenticador'])->group(function () {
         });
     });
 
+    
     Route::prefix('adm')->group(function () {
         Route::get('/', [AdmController::class, 'index'])->name('listar-Editor');
     });
