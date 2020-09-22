@@ -23,11 +23,12 @@ class Editor extends Model
 
     public static function logar(String $email, String $senha)
     {
-        $query = self::where([['email',$email]])->first();
+        $query = self::where([['email',$email]])->get();
 
+        dd($query);
         if(is_null($query)) return null;
 
-        if( Hash::check($senha, $query->senha)) return $query;
+        if(Hash::check($senha, $query->senha)) return $query;
 
 
 
