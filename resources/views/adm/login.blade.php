@@ -32,7 +32,6 @@ Login
         <input type="password" class="form-control" name="senha" id="senha" required>
     </div>
 <div class="d-flex justify-content-between">
-    <a type="button" href="/create" class="btn btn-success">Cadastrar-se</a>
     <button type="submit" class="btn btn-primary align-middle" name="ok">Login</button>
 </div>
 </form>

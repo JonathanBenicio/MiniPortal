@@ -20,13 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'index');
 
 
-Route::fallback('/');
 
 
-Route::prefix('create')->group(function () {
-    Route::post('edt', [LoginController::class, 'createEdt']);
-    Route::post('edt', [LoginController::class, 'createEdt']);
-});
 
 Route::prefix('login')->group(function () {
     Route::prefix('adm')->group(function () {
@@ -36,6 +31,11 @@ Route::prefix('login')->group(function () {
     Route::prefix('edt')->group(function () {
         Route::get('/', [LoginController::class, 'indexEdt']);
         Route::post('/', [LoginController::class, 'logarEdt']);
+    });
+
+    Route::prefix('create')->group(function () {
+        Route::get('edt', [LoginController::class, 'createEdt']);
+        Route::post('edt', [LoginController::class, 'createEdt']);
     });
 });
 
@@ -55,7 +55,7 @@ Route::middleware(['autenticador'])->group(function () {
             });
             Route::delete('deletar/{id}', [EditorController::class, 'deletar']);
         });
-    })->name('edt');
+    });
 
     Route::prefix('adm')->group(function () {
         Route::get('/', [AdmController::class, 'index'])->name('listar-Editor');
