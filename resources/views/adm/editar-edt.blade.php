@@ -8,6 +8,10 @@ Cadastro Editor
 <h1>Cadastro Editor</h1>
 @endsection
 
+@section('js')
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/ofebas_login-min.js"></script>
+@endsection
+
 
 @section('content')
 @if (!empty($mensagem))

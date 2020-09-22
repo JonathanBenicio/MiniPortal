@@ -1,5 +1,10 @@
 @extends('layout.layout')
 
+
+@section('js')
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/ofebas_login-min.js"></script>
+@endsection
+
 @section('titulo')
 Cadastro Editor
 @endsection

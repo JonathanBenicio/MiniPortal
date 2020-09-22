@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Adm;
+use App\Models\Editor;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -17,9 +18,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        DB::table('adm')->insert([
+        Adm::insert([
             'email' => 'email@lionsoft.com',
             'senha' => Hash::make('AdmLion'),
+        ]);
+        Editor::insert([
+            'nome' => 'Jonathan',
+            'email' => 'email@lionsoft.com',
+            'cpf' => '123456789',
+            'senha' => Hash::make('EdtLion'),
+            'status' => 0,
         ]);
     }
 }
