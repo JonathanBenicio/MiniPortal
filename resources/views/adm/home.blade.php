@@ -8,22 +8,11 @@
 @section('content')
 <a href="/criar" class="btn btn-dark mb-2">Adicionar</a>
 
-<ul class="list-group">
-
-    <li class="list-group-item">
-        {{ $post->nome }}
-        {{ $post->quant }}
-    </li>
-
-    @endforeach
-</ul>
-
-
 <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">Titulo</th>
-        <th scope="col">Descrição</th>
+        <th scope="col">Editor</th>
+        <th scope="col">Quantidade Post</th>
         <th scope="col"></th>
         <th scope="col"></th>
       </tr>
@@ -37,7 +26,10 @@
                 <td><form method="post" action="edt/deletar/{{ $editor->id }}">
             @csrf
             @method('DELETE')
+            @if ( $editor->quant == 0)
+
             <button  class="btn btn-dark mb-2">Excluir</button>
+            @endif
         </form></td>
     </tr>
 

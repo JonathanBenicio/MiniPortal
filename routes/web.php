@@ -19,31 +19,48 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
 
-Route::get('/login/adm', [LoginController::class, 'indexAdm']);
-Route::get('/login/edt', [LoginController::class, 'indexEdt']);
 
-Route::post('/login/adm', [LoginController::class, 'logarAdm']);
-Route::post('/login/edt', [LoginController::class, 'logarEdt']);
-
-Route::post('/create/edt', [LoginController::class, 'createEdt']);
-Route::post('/create/edt', [LoginController::class, 'createEdt']);
-
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::fallback('/');
 
 
+Route::prefix('create')->group(function () {
+    Route::post('edt', [LoginController::class, 'createEdt']);
+    Route::post('edt', [LoginController::class, 'createEdt']);
+});
+
+Route::prefix('login')->group(function () {
+    Route::prefix('adm')->group(function () {
+        Route::get('/', [LoginController::class, 'indexAdm']);
+        Route::post('/', [LoginController::class, 'logarAdm']);
+    });
+    Route::prefix('edt')->group(function () {
+        Route::get('/', [LoginController::class, 'indexEdt']);
+        Route::post('/', [LoginController::class, 'logarEdt']);
+    });
+});
 
 
+Route::middleware(['autenticador'])->group(function () {
+    Route::prefix('edt')->group(function () {
+        Route::get('/', [EditorController::class, 'index'])->name('listar-Post');
+        Route::prefix('post')->group(function () {
 
+            Route::prefix('criar')->group(function () {
+                Route::get('/', [EditorController::class, 'criar']);
+                Route::post('/', [EditorController::class, 'criar']);
+            });
+            Route::prefix('atualizar')->group(function () {
+                Route::get('{id}', [EditorController::class, 'atualizar']);
+            Route::post('{id}', [EditorController::class, 'atualizar']);
+            });
+            Route::delete('deletar/{id}', [EditorController::class, 'deletar']);
+        });
+    })->name('edt');
 
-Route::get('/adm', [AdmController::class, 'index'])->name('listar-Editor')->middleware('autenticador');
+    Route::prefix('adm')->group(function () {
+        Route::get('/', [AdmController::class, 'index'])->name('listar-Editor');
+    });
 
-Route::get('/edt', [EditorController::class, 'index'])->name('listar-Post')->middleware('autenticador');
-Route::get('/edt/criar', [EditorController::class, 'criar'])->middleware('autenticador');
-
-Route::post('/edt/criar', [EditorController::class, 'criar'])->middleware('autenticador');
-Route::get('/edt/atualizar/{id}', [EditorController::class, 'atualizar'])->middleware('autenticador');
-Route::post('/edt/atualizar/{id}', [EditorController::class, 'atualizar'])->middleware('autenticador');
-Route::delete('/edt/deletar/{id}', [EditorController::class, 'deletar'])->middleware('autenticador');
-
-
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+});
 

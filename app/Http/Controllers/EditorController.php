@@ -55,7 +55,7 @@ class EditorController extends Controller
 
         $request->session()->flash('mensagem', 'Post deleltado com sucesso');
 
-        return redirect('/edt');
+        return redirect()->route('edt');
 
     }
 

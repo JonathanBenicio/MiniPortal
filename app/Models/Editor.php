@@ -14,7 +14,7 @@ class Editor extends Model
         'email',
         'cpf',
         'senha',
-        'status' => 0
+        'status'
     ];
 
     protected $attributes = ['status' => 'A'];

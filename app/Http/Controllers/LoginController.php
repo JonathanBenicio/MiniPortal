@@ -33,7 +33,7 @@ class LoginController extends Controller
         # code...
         if(Adm::check()) return redirect('adm');
 
-        return view('login');
+        return view('login.login');
     }
 
 
@@ -44,7 +44,7 @@ class LoginController extends Controller
 
         $mensagem = $request->session()->get('mensagem');
 
-        return view('login', compact('mensagem'));
+        return view('login.login', compact('mensagem'));
     }
 
 
