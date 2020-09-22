@@ -126,5 +126,10 @@ class LoginController extends Controller
         return view('edt.create-edt');
     }
 
+    public function logout(Request $request)
+    {
+        # code...
+        session_reset();
+    }
 
 }

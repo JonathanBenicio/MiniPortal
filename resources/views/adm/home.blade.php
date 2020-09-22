@@ -9,12 +9,39 @@
 <a href="/criar" class="btn btn-dark mb-2">Adicionar</a>
 
 <ul class="list-group">
-    @foreach($Editors as $Editor)
+
     <li class="list-group-item">
-        {{ $post->titulo }}
-        {{ $post->descricao }}
+        {{ $post->nome }}
+        {{ $post->quant }}
     </li>
 
     @endforeach
 </ul>
+
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Titulo</th>
+        <th scope="col">Descrição</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        @foreach($editors as $editor)
+    <tr>
+        <th scope="row"> {{ $editor->nome }}</th>
+        <td>{{ $editor->quant }}</td>
+            <td><a href="edt/atualizar/{{ $editor->id }}" class="btn btn-dark mb-2">Atualizar</a></td>
+                <td><form method="post" action="edt/deletar/{{ $editor->id }}">
+            @csrf
+            @method('DELETE')
+            <button  class="btn btn-dark mb-2">Excluir</button>
+        </form></td>
+    </tr>
+
+    @endforeach
+</tbody>
+</table>
 @endsection

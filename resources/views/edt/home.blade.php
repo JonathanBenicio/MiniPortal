@@ -3,27 +3,47 @@
 @section('nav-menu')
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
     <a class="navbar navbar-expand-lg" href="{{ route('logout') }}">Sair</a>
-</nav>
 @endsection
 
 @section('content')
-<a href="edt/criar" class="btn btn-dark mb-2">Adicionar</a>
+<a href="/criar" class="btn btn-dark mb-2">Adicionar</a>
 
-<table>
+<ul class="list-group">
 
-    @foreach($posts as $post)
     <li class="list-group-item">
-        {{ $post->titulo }}
-        {{ $post->descricao }}
-        <a href="edt/atualizar/{{ $post->id }}" class="btn btn-dark mb-2">Atualizar</a>
-        <form method="post" action="edt/deletar/{{ $post->id }}">
-            @csrf
-            @method('DELETE')
-            <button  class="btn btn-dark mb-2">Excluir</button>
-        </form>
+        {{ $post->nome }}
+        {{ $post->quant }}
     </li>
 
     @endforeach
-</table>
+</ul>
 
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Titulo</th>
+        <th scope="col">Descrição</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        @foreach($editors as $editor)
+    <tr>
+        <th scope="row"> {{ $editor->nome }}</th>
+        <td>{{ $editor->quant }}</td>
+            <td><a href="edt/atualizar/{{ $editor->id }}" class="btn btn-dark mb-2">Atualizar</a></td>
+
+            <td>
+                <form method="post" action="edt/deletar/{{ $editor->id }}">
+                @csrf
+                <button  class="btn btn-dark mb-2">Excluir</button>
+                </form>
+            </td>
+    </tr>
+
+    @endforeach
+</tbody>
+</table>
 @endsection
