@@ -23,9 +23,6 @@ class Editor extends Model
 
     public static function logar(String $email, String $senha)
     {
-        # code...
-
-
         $query = self::where([['email',$email]])->first();
 
         if(is_null($query)) return null;
