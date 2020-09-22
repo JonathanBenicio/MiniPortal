@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class Editor extends Model
 {
@@ -24,13 +25,16 @@ class Editor extends Model
     {
         # code...
 
-        $query = self::where([['email',$email], ['senha',$senha]])->first();
+
+        $query = self::where([['email',$email]])->first();
+
+        if(is_null($query)) return null;
+
+        if( Hash::check($senha, $query->senha)) return $query;
 
 
-        if(is_null($query)) return false;
 
-
-        return $query;
+        return false;
 
     }
 

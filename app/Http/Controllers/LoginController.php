@@ -58,20 +58,9 @@ class LoginController extends Controller
 
 
         if(!empty($email) && !empty($senha)){
-
-
-
-
-            $editor = Adm::logar($email, Hash::make($senha));
-
-
-            var_dump(json_encode($editor));
-
-
-            // if(is_object($editor)) return redirect('edt');
-
-
-
+            $adm = Adm::logar($email, Hash::make($senha));
+            var_dump(json_encode($adm));
+            if(is_object($adm)) return redirect('adm');
         }
 
     }
@@ -97,7 +86,8 @@ class LoginController extends Controller
                 return redirect('edt');
             }
 
-            $request->session()->flash('mensagem', 'Aguarde liberação do Administrador');
+
+            is_null($editor) ? $request->session()->flash('mensagem', 'Varefique seu Email ou senha') : $request->session()->flash('mensagem', 'Aguarde liberação do Administrador');
 
             return redirect('/login/edt');
         }

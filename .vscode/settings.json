@@ -1,0 +1,6 @@
+{
+    "workbench.list.multiSelectModifier": "alt",
+    "laravel_goto_view.quickJump": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.mouseWheelZoom": true
+}
