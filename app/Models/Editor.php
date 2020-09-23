@@ -15,21 +15,16 @@ class Editor extends Model
         'email',
         'cpf',
         'senha',
-        'status'
     ];
 
-    protected $attributes = ['status' => 'A'];
-
+    public $timestamps = false;
 
     public static function logar(String $email, String $senha)
     {
-        $query = self::where([['email',$email]])->get();
-
-        dd($query);
-        if(is_null($query)) return null;
-
+        $query = self::where([['email',$email]])->first();
         if(Hash::check($senha, $query->senha)) return $query;
-
+       
+        if(is_null($query)) return null;
 
 
         return false;

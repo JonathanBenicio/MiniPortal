@@ -17,10 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::view('/', 'index');
+Route::get('/', [LoginController::class, 'index']);
 
-
-
+Route::fallback(function () {
+    return redirect('/');
+});
 
 
 Route::prefix('login')->group(function () {
@@ -50,10 +51,10 @@ Route::middleware(['autenticador'])->group(function () {
                 Route::post('/', [EditorController::class, 'criar']);
             });
             Route::prefix('atualizar')->group(function () {
-                Route::get('{id}', [EditorController::class, 'atualizar']);
-            Route::post('{id}', [EditorController::class, 'atualizar']);
+                Route::get('{id}', [EditorController::class, 'getAtualizar']);
+            Route::post('{id}', [EditorController::class, 'getAtualizar']);
             });
-            Route::delete('deletar/{id}', [EditorController::class, 'deletar']);
+            Route::post('deletar/{id}', [EditorController::class, 'deletar']);
         });
     });
 

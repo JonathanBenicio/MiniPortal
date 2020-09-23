@@ -5,6 +5,7 @@
 @section('nav-menu')
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
     <a class="navbar navbar-expand-lg" href="{{ route('logout') }}">Sair</a>
+</nav>
 @endsection
 
 @section('content')

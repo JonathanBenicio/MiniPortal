@@ -1,9 +1,10 @@
 @extends('layout.layout')
 
 
-@section('js')
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/ofebas_login-min.js"></script>
-@endsection
+
+@prepend('scripts')
+    <script src="{{ url('login.js') }}"></script>
+@endprepend
 
 @section('titulo')
 Cadastro Editor
@@ -24,7 +25,7 @@ Cadastro Editor
 
 
         <form method="post">
-@csrf
+            @csrf
 
             <fieldset>
                 <div  class="form-group">
@@ -37,7 +38,7 @@ Cadastro Editor
                 </div>
                 <div  class="form-group">
                     <label for="CPF">Digite seu CPF:</label>
-                    <input type="number" class="form-control" name="cpf" id="cpf" minlength="14" required>
+                    <input type="text" class="form-control" name="cpf" id="cpf" minlength="14" required>
                 </div>
                 <div  class="form-group">
                     <label for="senha">Digite sua Senha:</label>

@@ -19,8 +19,7 @@ class CreateEditorTable extends Migration
             $table->string('email', 100)->unique();
             $table->string('cpf', 14)->unique();
             $table->string('senha');
-            $table->boolean('status');
-
+            $table->boolean('status')->default(0);
         });
     }
 

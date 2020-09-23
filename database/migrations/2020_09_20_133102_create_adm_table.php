@@ -17,7 +17,6 @@ class CreateAdmTable extends Migration
             $table->id()->autoIncrement();
             $table->string('email');
             $table->string('senha');
-            $table->timestamps();
         });
     }
 

@@ -18,7 +18,6 @@ class CreatePostTable extends Migration
             $table->string('titulo');
             $table->string('descricao');
             $table->foreignId('editor_id')->constrained('editor');
-            $table->timestamps();
         });
     }
 

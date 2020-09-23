@@ -12,7 +12,8 @@ class Adm extends Model
     use HasFactory;
 
     protected $table = 'adm';
-
+    
+    public $timestamps = false;
 
     public static function logar(String $email, String $senha)
     {

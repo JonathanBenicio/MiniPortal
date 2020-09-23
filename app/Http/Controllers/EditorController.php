@@ -47,12 +47,14 @@ class EditorController extends Controller
 
 
     }
-    public function deleta(Request $request)
+    public function deletar(Request $request)
     {
         # code...
 
-        Post::destroy($request->id);
+        
 
+        
+        Post::where('id',$request->id)->delete();
         $request->session()->flash('mensagem', 'Post deleltado com sucesso');
 
         return redirect('edt');

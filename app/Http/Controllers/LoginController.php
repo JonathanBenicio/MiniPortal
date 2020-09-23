@@ -13,15 +13,15 @@ class LoginController extends Controller
 {
     //
 
-    public function index(Request $request )
+    public function index(Request $request)
     {
         # code...
 
-        if(Editor::check()) return redirect('edt');
+        if (Editor::check()) return redirect('edt');
 
-        if(Adm::check()) return redirect('adm');
+        if (Adm::check()) return redirect('adm');
 
-        return redirect('/');
+        return view('index');
     }
 
 
@@ -31,7 +31,7 @@ class LoginController extends Controller
     public function indexAdm(Request $request)
     {
         # code...
-        if(Adm::check()) return redirect('adm');
+        if (Adm::check()) return redirect('adm');
 
         return view('adm.login');
     }
@@ -40,7 +40,7 @@ class LoginController extends Controller
     public function indexEdt(Request $request)
     {
         # code...
-        if(Editor::check()) return redirect('edt');
+        if (Editor::check()) return redirect('edt');
 
         $mensagem = $request->session()->get('mensagem');
 
@@ -57,12 +57,11 @@ class LoginController extends Controller
         $senha = $request->input('senha');
 
 
-        if(!empty($email) && !empty($senha)){
+        if (!empty($email) && !empty($senha)) {
             $adm = Adm::logar($email, Hash::make($senha));
             var_dump(json_encode($adm));
-            if(is_object($adm)) return redirect('adm');
+            if (is_object($adm)) return redirect('adm');
         }
-
     }
 
     public function logarEdt(Request $request)
@@ -72,26 +71,22 @@ class LoginController extends Controller
         $email = $request->input('email');
         $senha = $request->input('senha');
 
-        if(!empty($email) && !empty($senha)){
+        if (!empty($email) && !empty($senha)) {
 
 
-            $editor = Editor::logar($email, $senha);
+            $editor = json_decode(Editor::logar($email, $senha));
 
+            if (is_object($editor)) {
 
-            if(is_object($editor)){
-
-                $editor = json_decode($editor);
 
                 $request->session()->put('editor', $editor);
                 return redirect('edt');
             }
 
-
             is_null($editor) ? $request->session()->flash('mensagem', 'Varefique seu Email ou senha') : $request->session()->flash('mensagem', 'Aguarde liberação do Administrador');
 
             return redirect('/login/edt');
         }
-
     }
 
     public function createEdt(Request $request)
@@ -102,14 +97,18 @@ class LoginController extends Controller
         $cpf = $request->input('cpf');
         $senha = $request->input('senha');
 
-        if(!empty($nome) && !empty($email) && !empty($cpf) && !empty($senha)){
+        if (!empty($nome) && !empty($email) && !empty($cpf) && !empty($senha)) {
 
-            Editor::insert(['nome'=>$nome, 'email'=>$email, 'cpf'=>$cpf, 'senha'=>Hash::make($senha), 'status'=>0]);
-
-
-
-        $request->session()->flash('mensagem', 'Cadastro realizado, aguarde o administrador libera acesso!');
-        return redirect('/login/edt');
+            if (Editor::where(['email' => $email, 'cpf' => $cpf])->exists()); {
+                $request->session()->flash('mensagem', 'Usuario já cadastrato');
+                $mensagem = $request->session()->get('mensagem');
+                return view('edt.create-edt', compact('mensagem'));
+            };
+            $query = Editor::create(['nome' => $nome, 'email' => $email, 'cpf' => $cpf, 'senha' => Hash::make($senha), 'status' => 0]);
+            $query->when(true, function ($request) {
+                $request->session()->flash('mensagem', 'Cadastro realizado, aguarde o administrador libera acesso!');
+                return redirect('/login/edt');
+            });
         }
 
 
@@ -120,6 +119,6 @@ class LoginController extends Controller
     {
         # code...
         session_reset();
+        redirect('/');
     }
-
 }
