@@ -89,31 +89,6 @@ class LoginController extends Controller
         }
     }
 
-    public function createEdt(Request $request)
-    {
-        # code...
-        $nome = $request->input('nome');
-        $email = $request->input('email');
-        $cpf = $request->input('cpf');
-        $senha = $request->input('senha');
-
-        if (!empty($nome) && !empty($email) && !empty($cpf) && !empty($senha)) {
-
-            if (Editor::where(['email' => $email, 'cpf' => $cpf])->exists()); {
-                $request->session()->flash('mensagem', 'Usuario já cadastrato');
-                $mensagem = $request->session()->get('mensagem');
-                return view('edt.create-edt', compact('mensagem'));
-            };
-            $query = Editor::create(['nome' => $nome, 'email' => $email, 'cpf' => $cpf, 'senha' => Hash::make($senha), 'status' => 0]);
-            $query->when(true, function ($request) {
-                $request->session()->flash('mensagem', 'Cadastro realizado, aguarde o administrador libera acesso!');
-                return redirect('/login/edt');
-            });
-        }
-
-
-        return view('edt.create-edt');
-    }
 
     public function logout(Request $request)
     {

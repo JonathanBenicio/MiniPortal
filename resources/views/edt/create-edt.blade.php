@@ -46,7 +46,7 @@ Cadastro Editor
                 </div>
             </fieldset>
 
-            <button type="submit" class="btn btn-primary" name="ok">Cadastrar-se</button>
+            <button type="submit" class="btn btn-success" name="ok">Cadastrar-se</button>
         </form>
 
 

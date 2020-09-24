@@ -11,7 +11,7 @@
     </div>
     <div class="d-flex justify-content-around">
 
-        <a type="button" href="/login/adm" class="btn btn-success mr-5">Administrador</a>
+        <a type="button" href="/login/adm" class="btn btn- mr-5">Administrador</a>
         <a type="button" href="/login/edt" class="btn btn-primary">Editor</a>
     </div>
 </div>

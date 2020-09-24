@@ -10,7 +10,7 @@
 
 @section('content')
 <a href="edt/post/criar" class="btn btn-dark mb-2">Adicionar</a>
-
+<div class="d-flex align-items-center">
 <table class="table">
     <thead class="thead-dark">
       <tr>
@@ -22,16 +22,18 @@
     <tbody>
         @foreach($posts as $post)
             <tr>
-                <th scope="row"> {{ $post->titulo }}</th>
-                <td><a href="edt/post/atualizar/{{ $post->id }}" class="btn btn-dark mb-2">Atualizar</a></td>
-                <td>
+                <td > {{ $post->titulo }}</td>
+                <td class=" d-flex justify-content-end">
+                    <a href="edt/post/atualizar/{{ $post->id }}" class="mr-1 btn btn-primary">Atualizar</a>
                     <form method="post" action="edt/post/deletar/{{ $post->id }}">
-                    @csrf
-                    <button  class="btn btn-dark mb-2">Excluir</button>
+                        @csrf
+                        <button  class="btn btn-danger ">Excluir</button>
                     </form>
+                
                 </td>
             </tr>
         @endforeach
     </tbody>
 </table>
+</div>
 @endsection

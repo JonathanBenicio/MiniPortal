@@ -10,9 +10,14 @@ Login
 
 
 @section('content')
-@if (!empty($mensagem))
+@if (!empty($erro))
 <div class="alert alert-danger">
     {{ $mensagem }}
+</div>
+@endif
+@if (!empty($msg))
+<div class="alert alert-success">
+    {{ $msg }}
 </div>
 @endif
 
@@ -33,7 +38,7 @@ Login
     </div>
 <div class="d-flex justify-content-between">
     <a type="button" href="create/edt" class="btn btn-success">Cadastrar-se</a>
-    <button type="submit" class="btn btn-primary align-middle" name="ok">Login</button>
+    <button type="submit" class="btn btn-info" name="ok">Login</button>
 </div>
 </form>
 
