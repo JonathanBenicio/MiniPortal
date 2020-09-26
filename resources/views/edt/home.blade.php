@@ -24,9 +24,10 @@
             <tr>
                 <td > {{ $post->titulo }}</td>
                 <td class=" d-flex justify-content-end">
-                    <a href="edt/post/atualizar/{{ $post->id }}" class="mr-1 btn btn-primary">Atualizar</a>
-                    <form method="post" action="edt/post/deletar/{{ $post->id }}">
+                    <a href="edt/{{ $post }}/post" class="mr-1 btn btn-primary">Atualizar</a>
+                    <form method="post" action="edt/post/{{ $post->id }}">
                         @csrf
+                        @method('DELETE')
                         <button  class="btn btn-danger ">Excluir</button>
                     </form>
                 

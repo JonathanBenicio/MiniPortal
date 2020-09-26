@@ -71,6 +71,9 @@ class LoginController extends Controller
         $email = $request->input('email');
         $senha = $request->input('senha');
 
+        
+        die(Editor::attempt(['email' => $email, 'password' => $senha]));
+
         if (!empty($email) && !empty($senha)) {
 
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\post;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -12,10 +12,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+  
 
     /**
      * Show the form for creating a new resource.
@@ -25,6 +22,7 @@ class PostController extends Controller
     public function create()
     {
         //
+        return view('edt.create-post');
     }
 
     /**
@@ -36,15 +34,22 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        $titulo = $request->titulo;
+        $descricao = $request->descricao;
+
+
+        Post::insert(['titulo'=> $titulo, 'descricao'=>$descricao, 'editor' => Editor::getSession()->id]);
+
+        
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\post  $post
+     * @param  \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function show(post $post)
+    public function show(Post $post)
     {
         //
     }
@@ -52,22 +57,23 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\post  $post
+     * @param  \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(post $post)
+    public function edit(Post $post)
     {
         //
+        var_dump($post);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\post  $post
+     * @param  \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, post $post)
+    public function update(Request $request, Post $post)
     {
         //
     }
@@ -75,11 +81,15 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\post  $post
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(post $post)
+    public function destroy(Post $post)
     {
         //
+        Post::where('id',$post->id)->delete();
+        session()->flash('mensagem', 'Post deleltado com sucesso');
+
+        return redirect('edt');
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EditorController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,8 +36,8 @@ Route::prefix('login')->group(function () {
     });
 
     Route::prefix('create')->group(function () {
-        Route::get('edt', [LoginController::class, 'createEdt']);
-        Route::post('edt', [LoginController::class, 'createEdt']);
+        Route::get('edt', [EditorController::class, 'create']);
+        Route::post('edt', [EditorController::class, 'store']);
     });
 });
 
@@ -44,18 +45,22 @@ Route::prefix('login')->group(function () {
 Route::middleware(['autenticador'])->group(function () {
     Route::prefix('edt')->group(function () {
         Route::get('/', [EditorController::class, 'index'])->name('listar-Post');
-        Route::prefix('post')->group(function () {
+        // Route::prefix('post')->group(function () {
 
-            Route::prefix('criar')->group(function () {
-                Route::get('/', [EditorController::class, 'criar']);
-                Route::post('/', [EditorController::class, 'criar']);
-            });
-            Route::prefix('atualizar')->group(function () {
-                Route::get('{id}', [EditorController::class, 'getAtualizar']);
-            Route::post('{id}', [EditorController::class, 'getAtualizar']);
-            });
-            Route::post('deletar/{id}', [EditorController::class, 'deletar']);
-        });
+        //     Route::prefix('criar')->group(function () {
+        //         Route::get('/', [EditorController::class, 'criar']);
+        //         Route::post('/', [EditorController::class, 'criar']);
+        //     });
+        //     Route::prefix('atualizar')->group(function () {
+        //         Route::get('{id}', [EditorController::class, 'getAtualizar']);
+        //     Route::post('{id}', [EditorController::class, 'getAtualizar']);
+        //     });
+        //     Route::post('deletar/{id}', [EditorController::class, 'deletar']);
+        // });
+
+        Route::resource('post', PostController::class)->except([
+            'index'
+        ]);;
     });
 
     

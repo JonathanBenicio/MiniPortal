@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Editor;
-use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class EditorController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,33 +16,26 @@ class EditorController extends Controller
      */
     public function index()
     {
-        $idSession = Editor::getSession()->id;
+        $idEditor = Editor::getSession();
 
-        $posts = Post::listPosts($idSession);
+        $posts = Editor::find($idEditor)->post()->get();
+
 
         return view('edt.home', compact('posts'));
 
     }
 
 
-    public function criar(Request $request)
+    public function create()
     {
-        # code...
-
-        $titulo = $request->titulo;
-        $descricao = $request->descricao;
-
-
-        Post::insert(['titulo'=> $titulo, 'descricao'=>$descricao, 'editor' => Editor::getSession()->id]);
-
-        return view('edt.create-post');
+        return view('edt.create-edt');        
     }
 
     public function getAtualizar(Request $request)
     {
         # code...
 
-        $post = Post::where('id', $request->id);
+        $post = Editor::post()::where('id', $request->id);
 
         return view('adm.editar-post', $post);
 
@@ -50,47 +43,28 @@ class EditorController extends Controller
     }
     public function deletar(Request $request)
     {
-        # code...
-
-        
-
-        
-        Post::where('id',$request->id)->delete();
-        $request->session()->flash('mensagem', 'Post deleltado com sucesso');
-
-        return redirect('edt');
+        ;
 
     }
 
-
-    
-    public function createEdt(Request $request)
+    public function store(Request $request)
     {
         # code...
-        $nome = $request->input('nome');
-        $email = $request->input('email');
-        $cpf = $request->input('cpf');
-        $senha = $request->input('senha');
+        $nome = $request->nome;
+        $email = $request->email;
+        $cpf = $request->cpf;
+        $senha = $request->senha;
 
-        if (!empty($nome) && !empty($email) && !empty($cpf) && !empty($senha)) {
-
-            if (Editor::where(['email' => $email, 'cpf' => $cpf])->exists()); {
-                $request->session()->flash('mensagem', 'Usuario já cadastrato');
-                $mensagem = $request->session()->get('mensagem');
-                return view('edt.create-edt', compact('mensagem'));
-            };
-            $query = Editor::create(['nome' => $nome, 'email' => $email, 'cpf' => $cpf, 'senha' => Hash::make($senha), 'status' => 0]);
-            $query->when(true, function ($request) {
-                $request->session()->flash('mensagem', 'Cadastro realizado, aguarde o administrador libera acesso!');
-                return redirect('/login/edt');
-            });
-        }
-
-
-        return view('edt.create-edt');
+        
+        if (Editor::where(['email' => $email, 'cpf' => $cpf])->exists()) {
+            $request->session()->flash('mensagem', 'Usuario já cadastrato');
+            $mensagem = $request->session()->get('mensagem');
+            return view('edt.create-edt', compact('mensagem'));
+        };
+        $query = Editor::create(['nome' => $nome, 'email' => $email, 'cpf' => $cpf, 'senha' => Hash::make($senha), 'status' => 0]);
+        $query->when(true, function ($request) {
+            $request->session()->flash('mensagem', 'Cadastro realizado, aguarde o administrador libera acesso!');
+            return redirect('/login/edt');
+        });
     }
-
-
-
-
 }

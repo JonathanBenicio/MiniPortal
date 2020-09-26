@@ -30,10 +30,14 @@ class DatabaseSeeder extends Seeder
             "senha" => Hash::make("123"),
         ]);
 
-        Post::insert([
+        Post::insert([[
             "titulo" => "Teste Titulo",
             "descricao" => "teste descricao",
             "editor_id" => "1"
-        ]);
+        ],[
+            "titulo" => "Teste Titulo",
+            "descricao" => "teste descricao",
+            "editor_id" => "1"
+        ]]);
     }
 }

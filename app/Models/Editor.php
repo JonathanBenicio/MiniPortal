@@ -14,10 +14,15 @@ class Editor extends Model
         'nome',
         'email',
         'cpf',
-        'senha',
     ];
-
+    
+    protected $hidden = ['senha'];
     public $timestamps = false;
+
+    public function post()
+    {
+        return $this->hasMany('App\Models\Post');
+    }
 
     public static function logar(String $email, String $senha)
     {
@@ -39,7 +44,7 @@ class Editor extends Model
 
         if(is_null($editor)) return false;
 
-        $logar = self::where([["email",$editor->email], ["senha",$editor->senha]])->exists();
+        $logar = self::where([["email",$editor->email]])->exists();
 
 
         return $logar;
